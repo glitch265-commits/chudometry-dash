@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1030" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Chudometry Dash — 15 Levels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- ======================= MAIN MENU ======================= -->
+    <div id="menu" class="screen menu-bg">
+      <div id="floaters" class="floaters"></div>
+
+      <div class="wrap">
+        <header class="header">
+          <div class="title-row">
+            <div class="cube-frame title-cube"><img id="titleImg" alt="" draggable="false" /></div>
+            <h1 class="title">CHUDOMETRY<span> DASH</span></h1>
+          </div>
+          <p class="subtitle">15 rhythm levels &middot; one button &middot; pure chud energy.</p>
+        </header>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Choose your Chud</h2>
+            <span class="hint">tap a card to select</span>
+          </div>
+          <div id="photoNote" class="photo-note hidden"></div>
+          <div id="chars" class="chars"></div>
+        </section>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="levels">🎮 Levels</button>
+          <button class="tab" data-tab="scores">🏆 High Scores</button>
+          <div class="tab-stats">
+            <span id="statDone">✅ 0/15 done</span>
+            <span id="statStars">⚡ 0 stars</span>
+          </div>
+        </div>
+
+        <section id="levelsPanel" class="panel">
+          <div id="levels" class="levels"></div>
+        </section>
+
+        <section id="scoresPanel" class="panel hidden">
+          <div id="scores"></div>
+        </section>
+
+        <div class="row">
+          <section class="panel links-panel">
+            <h2>More Chud Games</h2>
+            <div class="links">
+              <a class="link-card green" href="https://glitch265-commits.github.io/The-Long-Chud/" target="_blank" rel="noopener noreferrer">
+                <div class="link-inner">
+                  <span class="link-icon">🐍</span>
+                  <div class="link-text">
+                    <div class="font-game">The Long Chud</div>
+                    <div class="muted small">glitch265-commits.github.io/The-Long-Chud/</div>
+                  </div>
+                  <span class="link-arrow">↗</span>
+                </div>
+              </a>
+              <a class="link-card pink" href="https://glitch265-commits.github.io/Chudometry-dash-wave/" target="_blank" rel="noopener noreferrer">
+                <div class="link-inner">
+                  <span class="link-icon">〰️</span>
+                  <div class="link-text">
+                    <div class="font-game">Chudometry Dash: Wave</div>
+                    <div class="muted small">glitch265-commits.github.io/Chudometry-dash-wave/</div>
+                  </div>
+                  <span class="link-arrow">↗</span>
+                </div>
+              </a>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>Settings</h2>
+            <div id="settings" class="settings"></div>
+            <div class="statrow">
+              <div class="stat"><div class="stat-v" id="statAttempts">0</div><div class="stat-l">attempts</div></div>
+              <div class="stat"><div class="stat-v" id="statJumps">0</div><div class="stat-l">jumps</div></div>
+              <div class="stat"><div class="stat-v" id="statClears">0</div><div class="stat-l">clears</div></div>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel howto">
+          <h2>How to play</h2>
+          <ul>
+            <li>⬆️ <b>Space / ↑ / W / Click / Tap</b> to jump — hold to keep jumping</li>
+            <li>🟡 Yellow <b>orbs</b>: press while touching them for a mid-air jump</li>
+            <li>🟨 Yellow <b>pads</b> launch you automatically</li>
+            <li>⏸️ <b>Esc / P</b> pause &middot; <b>R</b> restart &middot; <b>M</b> menu</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="playbar">
+        <div class="playbar-inner">
+          <div class="cube-frame small"><img id="barImg" alt="" draggable="false" /></div>
+          <div class="bar-info">
+            <div id="barSub" class="bar-sub"></div>
+            <div id="barName" class="bar-name"></div>
+          </div>
+          <button id="playBtn" class="btn-play">▶ PLAY</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================= GAME ======================= -->
+    <div id="game" class="screen game hidden">
+      <div id="touch" class="touch"><canvas id="canvas"></canvas></div>
+
+      <div class="hud">
+        <div class="hud-inner">
+          <div class="hud-main">
+            <div class="hud-row">
+              <span id="hudName" class="hud-name"></span>
+              <span id="hudPct" class="hud-pct">0%</span>
+            </div>
+            <div class="bar">
+              <div id="hudFill" class="bar-fill"></div>
+              <div id="hudBest" class="bar-best hidden"></div>
+            </div>
+          </div>
+          <button id="pauseBtn" class="pause-btn" aria-label="Pause">⏸</button>
+        </div>
+      </div>
+
+      <div id="easyBadge" class="easy-badge hidden">easy mode</div>
+
+      <div id="ready" class="ready">
+        <div class="ready-box">
+          <div class="cube-frame ready-cube"><img id="readyImg" alt="" draggable="false" /></div>
+          <div id="readyTag" class="ready-tag"></div>
+          <h2 id="readyName" class="ready-name"></h2>
+          <div class="ready-start">Click / Tap / Space to Start</div>
+          <p class="ready-hint">Hold to keep jumping &bull; Tap orbs mid-air &bull; Esc / P to pause</p>
+          <p id="readyAttempt" class="ready-attempt"></p>
+        </div>
+      </div>
+
+      <div id="modal" class="modal hidden">
+        <div id="modalCard" class="modal-card"></div>
+      </div>
+
+      <div id="jumpscare" class="jumpscare hidden">
+        <div class="js-zoom"><img id="jsImg" alt="" draggable="false" /></div>
+        <div class="js-red"></div>
+        <div class="js-vignette"></div>
+      </div>
+    </div>
+
+    <script type="module" src="./game.js"></script>
+  </body>
+</html>
